@@ -1,5 +1,8 @@
 import React,{useState} from 'react'
-import {MdKeyboardArrowDown,MdKeyboardArrowUp} from 'react-icons/md'
+import {
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp
+       } from 'react-icons/md'
 const Toolbar = () => {
   const data = [
     {
@@ -46,10 +49,10 @@ const Toolbar = () => {
           }}
         />
         {
-            show && <div className='w-48 text-black absolute top-12 bg-yellow-500 right-0 z-20 p-2 '>
+            show && <div className='w-48 text-black absolute top-12 bg-white right-0 shadow-md shadow-slate-600'>
               {data.map((val,i)=>{
                 return (
-                  <div className='capitalize' key={i}>
+                  <div className='capitalize cursor-pointer items-center text-center py-2 hover:text-red-500' key={i}>
                     {val.name}
                   </div>
                 )

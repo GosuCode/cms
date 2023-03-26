@@ -21,13 +21,13 @@ const ViewBlog = () => {
 
   return (
     <div className='mt-12'>
-        ViewBlog
+        Title
         {
             Data && <div>
                 {
                     Data.map((val, i)=>{
                         return <div key={i}>
-                            {/* {val.title}{val.sub_title} */}
+                            {val.title}
                             </div>
                     })
                 }

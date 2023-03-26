@@ -1,7 +1,7 @@
 import {AiFillHome} from 'react-icons/ai'
 import {RiPagesLine} from 'react-icons/ri'
 import {BsFillPostcardHeartFill} from 'react-icons/bs'
-import {IoIosContacts} from "react-icons/io"
+import {MdPermMedia} from "react-icons/md"
 import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
@@ -22,7 +22,7 @@ const Sidebar = () => {
             path:"/posts"
         },
         {
-            icons:<IoIosContacts/>,
+            icons:<MdPermMedia/>,
             Name:"Media",
             path:"/media"
         }
