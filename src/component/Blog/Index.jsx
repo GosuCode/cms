@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AddForm from './Add/AddForm'
+import AddBlog from './Add/AddBlog'
 import ViewForm from './View/ViewForm'
 
 const Index = () => {
@@ -15,7 +15,7 @@ const Index = () => {
         }
     ]
   return (
-    <div className='mx-12 my-7'>
+    <div className='mx-12 my-7 bg-blue-200 rounded-md p-4 hover:shadow-lg shadow-slate-700'>
         <div className='flex'>
             {
             data.map((val, i) =>{
@@ -29,7 +29,7 @@ const Index = () => {
             })}
         </div>
         <div>
-            {Active==='add' ? <AddForm/> : <ViewForm/>}
+            {Active==='add' ? <AddBlog/> : <ViewForm/>}
         </div>
     </div>
   )

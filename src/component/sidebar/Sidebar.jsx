@@ -28,7 +28,7 @@ const Sidebar = () => {
         }
     ]
   return (
-    <div className=''>
+    <div>
     <div className='bg-slate-800 text-white h-screen w-full items-center pt-4 flex flex-col gap-4'>
         {SidebarData.map((val, i)=>{
           return <Link  key={i} className='hover:bg-white hover:text-black w-11/12 border-2 border-white rounded-md' to={val.path}>

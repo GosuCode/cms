@@ -31,7 +31,7 @@ const Toolbar = () => {
       </div>
       <div className='w-11/12 h-full gap-6 flex justify-end items-center text-white'>
       <div className="bg-emerald-600 rounded-full h-10 w-10"></div>
-      <div>Alember Shreesh</div>
+      <div className='cursor-pointer'>Alember Shreesh</div>
       <div>
         <MdKeyboardArrowDown
         onBlur={()=>{
