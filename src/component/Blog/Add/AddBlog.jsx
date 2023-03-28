@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, } from "formik";
-import { ToastContainer } from "react-toastify";
-import * as yup from "yup";
+// import * as yup from "yup";
 import axios from "axios";
 
-const schema = yup.object().shape({
-  title: yup.string().required("The title is required"),
-  sub_title: yup.string().required("The sub_title is required"),
-  author_name: yup.string().required("The author_name is required"),
-  date: yup.number().required("The date is required"),
-  description: yup.string().required("The description is required"),
-});
+// const schema = yup.object().shape({
+//   title: yup.string().required("The title is required"),
+//   sub_title: yup.string().required("The sub_title is required"),
+//   author_name: yup.string().required("The author_name is required"),
+//   date: yup.number().required("The date is required"),
+//   description: yup.string().required("The description is required"),
+// });
 const FormField = [
   {
     name: "title",
@@ -35,11 +34,6 @@ const FormField = [
   {
     name: "image",
     type: "file",
-    // image: [
-    //   {
-    //     path: "",
-    //   },
-    // ],
   },
 ];
 
@@ -50,22 +44,12 @@ const AddBlog = () => {
   const handleImageChange = (event) => {
     setShowImage(event.target.files[0]);
     setImage([...newImage, event.target.files[0]]);
+
   };
 
-  // const handleImageChange = (event) => {
-  //   // console.log(event.target.files[0]);
-  //   setImage(event.target.files[0]);
-  //   // const files = e.target.files;
-  //   // const formDataArray = [];
-  //   // for (let i = 0; i < files.length; i++) {
-  //   //     const formData = new FormData();
-  //   //     formData.append('image', files[i]);
-  //   //     formDataArray.push(formData);
-  //   // }
 
-  //   // setFormDataArray(formDataArray);
-  // };
   const postFormData = async (value) => {
+    console.trace("who called upon me?")
     const formData = new FormData();
     formData.append("title", value.title);
     formData.append("sub_title", value.sub_title);
@@ -77,7 +61,8 @@ const AddBlog = () => {
     }
     console.log(newImage);
     try {
-      await axios.post(`https://kalikablog.onrender.com/blog`, formData);
+      await axios.post("https://kalikablog.onrender.com/blog", formData);
+
     } catch (error) {
       console.log(error);
     }
@@ -95,7 +80,7 @@ const AddBlog = () => {
           description: "",
           image: [],
         }}
-        validationSchema={schema}
+        // validationSchema={schema}
         onSubmit={(val) => {
           console.log(val);
           postFormData(val);
@@ -137,8 +122,8 @@ const AddBlog = () => {
                       <Field
                         type={val.type}
                         name={val.name}
-                        placeholder={`enter your ${val.name}`}
-                        className="col-span-4 border-2 border-gray-400 mt-2"
+                        placeholder={`Enter your ${val.name}`}
+                        className="col-span-4 border-2 border-gray-400 mt-2 pl-2 focus:outline-none rounded-md"
                       />
                     )}
                   </div>
@@ -149,8 +134,6 @@ const AddBlog = () => {
           );
         }}
       </Formik>
-      {/* <ErrorMessage /> */}
-      <ToastContainer />
     </div>
   );
 };

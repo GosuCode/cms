@@ -24,25 +24,26 @@ const Toolbar = () => {
   const [show, setShow] = React.useState(false);
   const [Arrow, setArrow] = useState('down');
   return (
-    <div className='bg-slate-800 h-14 flex'>
-      <div className='flex items-center text-white'>
-        <div className='bg-red-600 w-10 font-bold text-4xl'>B</div>
+    <div className='bg-[#845EC2] h-14 flex'>
+      {/* [#392759] */}
+      <div className='flex items-center text-white gap-2 mx-10'>
+        <div className='bg-[#00C9A7] w-10 font-bold text-4xl'>B</div>
         <div>Blog Mgmt</div>
       </div>
       <div className='w-11/12 h-full gap-6 flex justify-end items-center text-white'>
-        <div className="bg-emerald-600 rounded-full h-10 w-10"></div>
+        <div className="bg-[#F3C5FF] rounded-full h-10 w-10"></div>
         <div className='cursor-pointer'>Alember Shreesh</div>
         <div>
           <MdKeyboardArrowDown
             onBlur={() => {
               setShow(false)
-
             }} onClick={() => {
               setArrow("up")
               setShow(!show)
-
-            }} className={`text-4xl relative cursor-pointer ${show ? "hidden" : "block"}  `} />
-          <MdKeyboardArrowUp className={`text-4xl relative  text-white  cursor-pointer   ${Arrow === "down" ? 'hidden  ' : 'block '}`}
+            }}
+            className={`text-4xl relative cursor-pointer ${show ? "hidden" : "block"}  `} />
+          <MdKeyboardArrowUp
+            className={`text-4xl relative  text-white  cursor-pointer   ${Arrow === "down" ? 'hidden  ' : 'block '}`}
             onClick={() => {
               setArrow("down")
               setShow(!show);

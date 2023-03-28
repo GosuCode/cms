@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 const ViewForm = () => {
-  const [blogs, setBlogs] = React.useState([]);
-  const [Index, setIndex] = React.useState(null);
+  const [blogs, setBlogs] = useState([]);
+  const [Index, setIndex] = useState(null);
+  const [toggle, setToggle] = useState([])
 
+  const TableHeader = [
+    {
+      name: "ID"
+    },
+    {
+      name: "Title"
+    },
+    {
+      name: "SubTitle"
+    },
+    {
+      name: "Description"
+    },
+    {
+      name: "Image"
+    },
+    {
+      name: "Action"
+    },
+  ]
   const getData = () => {
     try {
       axios
@@ -23,32 +45,43 @@ const ViewForm = () => {
     getData();
   }, []);
   const handleDelete = (_id) => {
-    axios.delete(`https://kalikablog.onrender.com/blog/${_id}`);
+    try {
+
+      axios.delete(`https://kalikablog.onrender.com/blog/${_id}`).then(res => {
+        if (res.status === 200) {
+          setToggle(!toggle);
+          toast.success("The data is deleted");
+          console.log("Data Gone Boy!!")
+        }
+      });
+    } catch (error) {
+      console.log(error)
+    }
   };
 
+  const newCallBack = useCallback(() => {
+    getData();
+  }, [])
+
+  const newData = useMemo(() => newCallBack(), [toggle]);
+
   return (
-    <div className="border-2 mt-12">
-      {blogs && (
-        <div>
-          {blogs.map((val, i) => {
-            console.log(val);
-            return <div key={i}>{val.name} </div>;
-          })}
-        </div>
-      )}
-      <table className="border-2">
-        <tr className="border-2">
-          <th className="border-2">ID</th>
-          <th className="border-2">Title</th>
-          <th className="border-2">Subtitle</th>
-          <th className="border-2">Description</th>
-          <th className="border-2">Image</th>
-          <th className="border-2">Action</th>
+    <div className="mt-12">
+
+      <table className="w-full">
+        {/* Table heading */}
+        <tr>
+          {
+            TableHeader.map((val, i) => {
+              return <th className="border-2" key={i}>{val.name}</th>
+            })
+          }
+
         </tr>
         {blogs.map((val, i) => {
           return (
             <tr key={i} className="border-2">
-              <td className="border-2">{val._id}</td>
+              <td className="border-2">{i + 1}</td>
               <td className="border-2">{val.title}</td>
               <td className="border-2">{val.sub_title}</td>
               <td>
@@ -58,23 +91,33 @@ const ViewForm = () => {
                   dangerouslySetInnerHTML={{ __html: val.description }}
                 />
                 <div
-                  className="bg-red-500 text-white rounded-lg p-2 mt-6 w-fit"
+                  className={`text-blue-500 cursor-pointer`}
+                  // ${i ? "hidden" : "block"}
                   onClick={() => {
                     setIndex(i);
                   }}
                 >
                   View More
                 </div>
-              </td>
-              <td className="border-2 flex overflow-scroll">
-                {val.image.map((value, index) => {
-                  return <img key={index} src={value.path} alt="preview" />;
-                })}
-                <img src={val.image[0].path} className="w-80" alt="img" />
-              </td>
-              <td>
                 <div
-                  className="cursor-pointer p-2 text-white rounded-md bg-red-500"
+                  className={`text-blue-500 rounded-lg p-2 cursor-pointer`}
+                  // ${see === "no" ? "hidden" : "block"}
+                  onClick={() => {
+                    setIndex(!i);
+                  }}>
+                  View Less
+                </div>
+              </td>
+              <td className="border-2 flex overflow-scroll col-span-1">
+                {val.image.map((value, index) => {
+                  return <div className="h-[200px] w-fit">
+                    <img key={index} src={value.path} alt="preview" className="" />
+                  </div>
+                })}
+              </td>
+              <td className="border-2">
+                <div
+                  className="cursor-pointer p-2 text-white rounded-md bg-[#00C9A7]"
                   onClick={() => {
                     handleDelete(val._id);
                   }}
