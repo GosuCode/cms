@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Formik, Form, Field,  } from "formik";
+import { Formik, Form, Field, } from "formik";
 import { ToastContainer } from "react-toastify";
 import * as yup from "yup";
 import axios from "axios";
 
 const schema = yup.object().shape({
-  title: yup.string().required("The name is required"),
-  sub_title: yup.string().required("The name is required"),
-  author_name: yup.string().required("The name is required"),
-  date: yup.string().required("The name is required"),
-  description: yup.string().required("The name is required"),
+  title: yup.string().required("The title is required"),
+  sub_title: yup.string().required("The sub_title is required"),
+  author_name: yup.string().required("The author_name is required"),
+  date: yup.number().required("The date is required"),
+  description: yup.string().required("The description is required"),
 });
 const FormField = [
   {
@@ -106,9 +106,11 @@ const AddBlog = () => {
               {FormField.map((val, i) => {
                 return (
                   <div
-                  key={i}
-                  className="grid grid-cols-12">
-                    <label htmlFor={val.name} className="capitalize col-span-2">{val.name}</label>
+                    key={i}
+                    className="grid grid-cols-12">
+                    <label htmlFor={val.name} className="capitalize col-span-2">
+                      {val.name}
+                    </label>
                     {val.type === "file" ? (
                       <div>
                         <img
@@ -121,7 +123,7 @@ const AddBlog = () => {
                           alt=""
                           className="mt-2"
                         />
-                        <input
+                        <input                       //Input field
                           type={val.type}
                           name={val.name}
                           accept=".png,.jpg,.jpeg,.gif"

@@ -58,7 +58,7 @@ const ViewForm = () => {
                   dangerouslySetInnerHTML={{ __html: val.description }}
                 />
                 <div
-                  className="bg-red-500 text-white rounded-lg p-4 mt-6 w-fit"
+                  className="bg-red-500 text-white rounded-lg p-2 mt-6 w-fit"
                   onClick={() => {
                     setIndex(i);
                   }}
@@ -74,7 +74,7 @@ const ViewForm = () => {
               </td>
               <td>
                 <div
-                  className="cursor-pointer"
+                  className="cursor-pointer p-2 text-white rounded-md bg-red-500"
                   onClick={() => {
                     handleDelete(val._id);
                   }}
