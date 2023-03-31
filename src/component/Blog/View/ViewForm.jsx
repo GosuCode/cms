@@ -6,6 +6,7 @@ const ViewForm = () => {
   const [Index, setIndex] = useState(null);
   const [toggle, setToggle] = useState([])
 
+
   const TableHeader = [
     {
       name: "ID"
@@ -26,6 +27,7 @@ const ViewForm = () => {
       name: "Action"
     },
   ]
+  //get data
   const getData = () => {
     try {
       axios
@@ -44,6 +46,8 @@ const ViewForm = () => {
   React.useEffect(() => {
     getData();
   }, []);
+
+  // handle delete
   const handleDelete = (_id) => {
     try {
 
@@ -108,9 +112,9 @@ const ViewForm = () => {
                   View Less
                 </div>
               </td>
-              <td className="border-2 flex overflow-scroll col-span-1">
+              <td className="border-2 flex col-span-1">
                 {val.image.map((value, index) => {
-                  return <div className="h-[200px] w-fit">
+                  return <div className="h-fit w-fit">
                     <img key={index} src={value.path} alt="preview" className="" />
                   </div>
                 })}
@@ -120,8 +124,7 @@ const ViewForm = () => {
                   className="cursor-pointer p-2 text-white rounded-md bg-[#00C9A7]"
                   onClick={() => {
                     handleDelete(val._id);
-                  }}
-                >
+                  }}>
                   Delete
                 </div>
               </td>

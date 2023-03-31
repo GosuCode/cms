@@ -104,11 +104,10 @@ const AddBlog = () => {
                               ? URL.createObjectURL(showimage)
                               : ""
                           }
-                          width={100}
                           alt=""
                           className="mt-2"
                         />
-                        <input                       //Input field
+                        <input                       //Input field for image
                           type={val.type}
                           name={val.name}
                           accept=".png,.jpg,.jpeg,.gif"
@@ -129,7 +128,10 @@ const AddBlog = () => {
                   </div>
                 );
               })}
-              <button type="submit" className="border-2 border-gray-800 rounded-md">submit</button>
+              <button type="submit"
+                className="rounded-md px-4 py-1 bg-[#845EC2] text-white font-semibold hover:bg-[#00C9A7] hover:scale-105 transition-all duration-300">
+                submit
+              </button>
             </Form>
           );
         }}

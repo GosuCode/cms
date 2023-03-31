@@ -4,7 +4,7 @@ import Index from '../Blog/Index'
 const Home = () => {
   return (
     <>
-    <Index/>
+      <Index />
     </>
   )
 }

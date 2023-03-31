@@ -43,14 +43,14 @@ const Toolbar = () => {
             }}
             className={`text-4xl relative cursor-pointer ${show ? "hidden" : "block"}  `} />
           <MdKeyboardArrowUp
-            className={`text-4xl relative  text-white  cursor-pointer   ${Arrow === "down" ? 'hidden  ' : 'block '}`}
+            className={`text-4xl relative text-white cursor-pointer ${Arrow === "down" ? 'hidden  ' : 'block '}`}
             onClick={() => {
               setArrow("down")
               setShow(!show);
             }}
           />
           {
-            show && <div className='w-48 text-black absolute top-12 bg-white right-0 shadow-md shadow-slate-600'>
+            show && <div className='w-48 text-black absolute top-12 bg-[#FEFEDF] right-0 shadow-md shadow-slate-600'>
               {data.map((val, i) => {
                 return (
                   <div className='capitalize cursor-pointer items-center text-center py-2 hover:text-red-500' key={i}>
