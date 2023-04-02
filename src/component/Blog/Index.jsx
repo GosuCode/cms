@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import AddBlog from './Add/AddBlog'
 import ViewForm from './View/ViewForm'
+import AddForm from './Add/AddForm'
 
 const Index = () => {
     const [Active, setActive] = useState('add')
@@ -29,7 +29,7 @@ const Index = () => {
                     })}
             </div>
             <div>
-                {Active === 'add' ? <AddBlog /> : <ViewForm />}
+                {Active === 'add' ? <AddForm /> : <ViewForm />}
             </div>
         </div>
     )

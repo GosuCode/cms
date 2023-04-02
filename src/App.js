@@ -4,6 +4,8 @@ import Media from './component/pages/Media';
 import Home from './component/pages/Home';
 import Pages from './component/pages/Pages';
 import Posts from './component/pages/Posts';
+import ViewMore from './component/Blog/View/ViewMore';
+import Index from './component/Blog/Index';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <Route path='/pages' element={<Pages/>}/>
       <Route path='/posts' element={<Posts/>}/>
       <Route path='/media' element={<Media/>}/>
+      <Route path='/viewmore' element={<ViewMore/>}/>
+      <Route path='/index' element={<Index/>}/>
     </Routes>
   </Layout>
 </Router>

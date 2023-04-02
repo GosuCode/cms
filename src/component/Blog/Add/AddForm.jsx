@@ -1,15 +1,32 @@
 import React, { useState } from "react";
-import { Formik, Form, Field, } from "formik";
-// import * as yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as yup from "yup";
 import axios from "axios";
 
-// const schema = yup.object().shape({
-//   title: yup.string().required("The title is required"),
-//   sub_title: yup.string().required("The sub_title is required"),
-//   author_name: yup.string().required("The author_name is required"),
-//   date: yup.number().required("The date is required"),
-//   description: yup.string().required("The description is required"),
-// });
+const schema = yup.object().shape({
+  title: yup.string().required("The title is required"),
+  sub_title: yup.string().required("The sub title is required"),
+  author_name: yup.string().required("The author name is required"),
+  // date: yup.number().required("The date is required"),
+  description: yup.string().required("The description is required"),
+
+  // image: yup.mixed()
+  //   .required('Please upload an image')
+  //   .test('fileType', 'Invalid file type', (value) => {
+  //     if (value) {
+  //       return ['image/png', 'image/jpeg', 'image/gif'].includes(value.type);
+  //     }
+  //     return true;
+  //   })
+  //   .test('fileSize', 'File size too large', (value) => {
+  //     if (value) {
+  //       return value.size <= 5000000; // 5MB
+  //     }
+  //     return true;
+  //   }),
+});
+
+
 const FormField = [
   {
     name: "title",
@@ -37,7 +54,7 @@ const FormField = [
   },
 ];
 
-const AddBlog = () => {
+const AddForm = () => {
   const [showimage, setShowImage] = useState("");
   const [newImage, setImage] = useState([]);
 
@@ -46,7 +63,6 @@ const AddBlog = () => {
     setImage([...newImage, event.target.files[0]]);
 
   };
-
 
   const postFormData = async (value) => {
     console.trace("who called upon me?")
@@ -70,7 +86,9 @@ const AddBlog = () => {
 
   return (
     <div className="mt-12">
+
       {/* field title,sub_title,author_name,date,description,image */}
+
       <Formik
         initialValues={{
           title: "",
@@ -80,11 +98,14 @@ const AddBlog = () => {
           description: "",
           image: [],
         }}
-        // validationSchema={schema}
+
+        validationSchema={schema}          //passing schema
+
         onSubmit={(val) => {
-          console.log(val);
+          console.log("🚀 ~ file: AddForm.jsx:86 ~ AddForm ~ val:", val)
           postFormData(val);
         }}>
+
         {({ handleSubmit }) => {
           return (
             <Form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -92,10 +113,11 @@ const AddBlog = () => {
                 return (
                   <div
                     key={i}
-                    className="grid grid-cols-12">
-                    <label htmlFor={val.name} className="capitalize col-span-2">
+                    className="grid grid-cols-6">
+                    <label htmlFor={val.name} className="capitalize col-span-1 mt-8">
                       {val.name}
                     </label>
+
                     {val.type === "file" ? (
                       <div>
                         <img
@@ -106,30 +128,32 @@ const AddBlog = () => {
                           }
                           width={100}
                           alt=""
-                          className="mt-2"
+                          className="mt-8"
                         />
                         <input                       //Input field
                           type={val.type}
                           name={val.name}
                           accept=".png,.jpg,.jpeg,.gif"
-                          required
                           multiple
                           onChange={(e) => handleImageChange(e)}
                           className=""
                         />
                       </div>
                     ) : (
-                      <Field
-                        type={val.type}
-                        name={val.name}
-                        placeholder={`Enter your ${val.name}`}
-                        className="col-span-4 border-2 border-gray-400 mt-2 pl-2 focus:outline-none rounded-md"
-                      />
+                      <div className="col-span-5 flex mt-8">
+                        <Field
+                          type={val.type}
+                          name={val.name}
+                          placeholder={`Enter your ${val.name}`}
+                          className="border-2 border-gray-400 pl-2 focus:outline-none rounded-md"
+                        />
+                        <p className="text-red-600 text-sm pl-4"><ErrorMessage name={val.name} /></p>
+                      </div>
                     )}
                   </div>
                 );
               })}
-              <button type="submit" className="border-2 border-gray-800 rounded-md">submit</button>
+              <button type="submit" className="rounded-md bg-[#845EC2] mt-8 text-white p-2">submit</button>
             </Form>
           );
         }}
@@ -138,4 +162,4 @@ const AddBlog = () => {
   );
 };
 
-export default AddBlog;
+export default AddForm;

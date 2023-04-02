@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useMemo } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 const ViewForm = () => {
   const [blogs, setBlogs] = useState([]);
-  const [Index, setIndex] = useState(null);
+  // const [Index, setIndex] = useState(null);
   const [toggle, setToggle] = useState([])
 
   const TableHeader = [
@@ -12,6 +13,9 @@ const ViewForm = () => {
     },
     {
       name: "Title"
+    },
+    {
+      name: "Author"
     },
     {
       name: "SubTitle"
@@ -80,17 +84,18 @@ const ViewForm = () => {
         </tr>
         {blogs.map((val, i) => {
           return (
-            <tr key={i} className="border-2">
+            <tr key={i} className="border-2 text-center">
               <td className="border-2">{i + 1}</td>
               <td className="border-2">{val.title}</td>
+              <td className="border-2">{val.author_name}</td>
               <td className="border-2">{val.sub_title}</td>
               <td>
                 <div
-                  className={`${Index === i ? "" : "line-clamp-3"
+                  className={`${null === i ? "" : "line-clamp-3"
                     } text-justify`}
                   dangerouslySetInnerHTML={{ __html: val.description }}
                 />
-                <div
+                {/* <div
                   className={`text-blue-500 cursor-pointer`}
                   // ${i ? "hidden" : "block"}
                   onClick={() => {
@@ -106,18 +111,25 @@ const ViewForm = () => {
                     setIndex(!i);
                   }}>
                   View Less
-                </div>
+                </div> */}
               </td>
               <td className="border-2 flex overflow-scroll col-span-1">
                 {val.image.map((value, index) => {
-                  return <div className="h-[200px] w-fit">
-                    <img key={index} src={value.path} alt="preview" className="" />
-                  </div>
+                  return (
+                    <img key={index} src={value.path} alt="preview" className="h-[200px] w-fit" />
+                  )
                 })}
               </td>
-              <td className="border-2">
+              <td className="border-2 mx-4">
+                <Link to={"/viewmore"}>
+                  <div
+                    className="cursor-pointer text-center text-white rounded-md bg-[#00C9A7]">
+                    View More
+                  </div>
+                </Link>
+
                 <div
-                  className="cursor-pointer p-2 text-white rounded-md bg-[#00C9A7]"
+                  className="cursor-pointer p-2 text-white rounded-md bg-[#ff0000]"
                   onClick={() => {
                     handleDelete(val._id);
                   }}
