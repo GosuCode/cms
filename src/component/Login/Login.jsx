@@ -1,59 +1,88 @@
 import * as yup from 'yup'
-import { useFormik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+
+const schema = yup.object().shape({
+    name: yup.string().required('Name is required'),
+    email: yup.string().email('Please enter a valid email').required('Email is required'),
+    password: yup.string()
+        .required("Password is required")
+        .min(8, "Password must be at least 8 characters")
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/,
+            "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character"
+        )
+
+})
 
 const Login = () => {
-    const formik = useFormik({
-        initialValues: {
-            name: '',
-            email: '',
-            age: '',
-        },
-        onSubmit: function (values) {
-            console.log(`You are registered! Name: ${values.name}. Email: ${values.email}.
-        Age: ${values.age}`);
-        },
 
-        validationSchema: yup.object({
-            name: yup.string().label('Full Name').required(),
-            email: yup.string().email().required(),
-            age: yup.number().min(15, 'You need to be older than 15 to register').required()
-        })
-    })
+    const label = [
+        {
+            Name: 'name',
+            type: 'name'
+        },
+        {
+            Name: 'email',
+            type: 'email'
+        },
+        {
+            Name: 'password',
+            type: 'password'
+        },
+        {
+            Name: 'confirm password',
+            type: 'confirm password'
+        },
+    ]
     return (
-        <div className="bg-blue-300 min-w-screen min-h-screen overflow-x-hidden">
-            <form onSubmit={formik.handleSubmit} className="max-w-lg mx-auto bg-white rounded shadow-lg mt-7 p-3">
-                <h1 className='text-3xl mb-3 text-center'>Register</h1>
-                <div className='mb-4'>
-                    <label for="name">Full Name</label>
-                    <input type="text" name="name" id="name"
-                        className={`block w-full rounded border py-1 px-2 ${formik.touched.name && formik.errors.name ? 'border-red-400' : 'border-gray-300'}`}
-                        onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.name} />
-                    {formik.touched.name && formik.errors.name && (
-                        <span className='text-red-400'>{formik.errors.name}</span>
-                    )}
-                </div>
-                <div className='mb-4'>
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email"
-                        className={`block w-full rounded border py-1 px-2 ${formik.touched.email && formik.errors.email ? 'border-red-400' : 'border-gray-300'}`}
-                        onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
-                    {formik.touched.email && formik.errors.email && (
-                        <span className='text-red-400'>{formik.errors.email}</span>
-                    )}
-                </div>
-                <div className='mb-4'>
-                    <label for="age">Age</label>
-                    <input type="number" name="age" id="age"
-                        className={`block w-full rounded border py-1 px-2 ${formik.touched.age && formik.errors.age ? 'border-red-400' : 'border-gray-300'}`}
-                        onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.age} />
-                    {formik.touched.age && formik.errors.age && (
-                        <span className='text-red-400'>{formik.errors.age}</span>
-                    )}
-                </div>
-                <div className='text-center'>
-                    <button className='bg-blue-500 rounded p-3 text-white' type='submit'>Submit</button>
-                </div>
-            </form>
+        <div>
+            <Formik
+                initialValues={{
+                    name: "",
+                    email: " ",
+                    password: " ",
+
+
+                }}
+
+                validationSchema={schema}
+
+                onSubmit={(val) => {
+                    console.log(val)
+                }}
+            >
+
+                {({ handleSubmit }) => {
+                    return (
+                        <Form onSubmit={handleSubmit} encType="multipart/form-data">
+                            {label.map((val, i) => {
+                                return (
+                                    <div key={i} className='flex'>
+                                        <label key={i} htmlFor={val.Name}>{val.Name}</label>
+
+                                        <div>
+                                            <Field
+                                                type={val.type}
+                                                name={val.Name}
+                                                className="border-2 border-gray-400 focus:outline-none rounded-md"
+                                            />
+                                            <ErrorMessage
+                                                component={"div"}
+                                                name={val.Name}
+                                                className='text-red-500 text-sm'
+                                            >
+                                            </ErrorMessage>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                            }
+                            <button type='submit'>Login</button>
+                        </Form>
+                    )
+                }}
+            </Formik>
+
         </div>
     )
 }

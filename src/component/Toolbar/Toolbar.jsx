@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import {
-  MdKeyboardArrowDown,
-  MdKeyboardArrowUp
-} from 'react-icons/md'
+import { Link } from 'react-router-dom'
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
+
 const Toolbar = () => {
   const data = [
     {
@@ -32,7 +31,7 @@ const Toolbar = () => {
       </div>
       <div className='w-11/12 h-full gap-6 flex justify-end items-center text-white'>
         <div className="bg-[#F3C5FF] rounded-full h-10 w-10"></div>
-        <div className='cursor-pointer'>Alember Shreesh</div>
+        <div className='cursor-pointer'><Link to={'/login'}>Login</Link> </div>
         <div>
           <MdKeyboardArrowDown
             onBlur={() => {

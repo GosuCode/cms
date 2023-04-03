@@ -1,11 +1,15 @@
 import React, { useState, useCallback, useMemo } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import {
+  Link,
+  //  useNavigate
+} from "react-router-dom";
 const ViewForm = () => {
   const [blogs, setBlogs] = useState([]);
   // const [Index, setIndex] = useState(null);
   const [toggle, setToggle] = useState([])
+  // const navigate = useNavigate();
 
   const TableHeader = [
     {
@@ -121,12 +125,15 @@ const ViewForm = () => {
                 })}
               </td>
               <td className="border-2 mx-4">
-                <Link to={"/viewmore"}>
-                  <div
-                    className="cursor-pointer text-center text-white rounded-md bg-[#00C9A7]">
-                    View More
-                  </div>
+
+                <Link to={`/viewmore/${val._id}`}> <div
+                  className="cursor-pointer text-center text-white rounded-md bg-[#00C9A7]">
+                  View More
+                </div>
+
                 </Link>
+
+                {/* <div onClick={() => navigate(`/item/${val._id}`)} className="cursor-pointer">View More</div> */}
 
                 <div
                   className="cursor-pointer p-2 text-white rounded-md bg-[#ff0000]"
