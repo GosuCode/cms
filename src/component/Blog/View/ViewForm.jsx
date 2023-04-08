@@ -120,7 +120,7 @@ const ViewForm = () => {
               <td className="border-2 flex overflow-scroll col-span-1">
                 {val.image.map((value, index) => {
                   return (
-                    <img key={index} src={value.path} alt="preview" className="h-[200px] w-fit" />
+                    <img key={index} src={value.path} alt="preview" className="h-[200px] w-[500px]" />
                   )
                 })}
               </td>

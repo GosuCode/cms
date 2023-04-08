@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import ViewForm from './View/ViewForm'
 import AddForm from './Add/AddForm'
 
+
 const Index = () => {
-    const [Active, setActive] = useState('add')
+    const [Active, setActive] = useState('add');
+
     const data = [
         {
             name: 'add form',
@@ -22,7 +24,10 @@ const Index = () => {
                         return <div onClick={() => {
                             setActive(val.id)
                         }} key={i}
-                            className={`${Active === val.id ? "bg-[#00C9A7] text-white shadow-lg shadow-gray-600" : "bg-white text-black shadow-md shadow-gray-600"}
+                            className={
+                                `${Active === val.id
+                                    ? ("bg-[#00C9A7] text-white shadow-lg shadow-gray-600")
+                                    : ("bg-white text-black shadow-md shadow-gray-600")}
                 cursor-pointer capitalize rounded-md w-full text-center items-center text-xl font-semibold`}>
                             {val.name}
                         </div>

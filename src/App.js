@@ -7,6 +7,7 @@ import Posts from './component/pages/Posts';
 import ViewMore from './component/Blog/View/ViewMore';
 import Index from './component/Blog/Index';
 import Login from './component/Login/Login';
+import Signup from './component/Login/Signup';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path='/index' element={<Index/>}/>
       <Route exact path='/login' element={<Login/>}/>
       <Route exact path='/viewmore/:id' element={<ViewMore/>}/>
+      <Route exact path='/signup' element={<Signup/>}/>
     </Routes>
   </Layout>
 </Router>

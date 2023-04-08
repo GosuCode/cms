@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import axios from "axios";
+import { UserAuthContext } from "../../HOC/ContextAPI/UserAuthContextApi";
 
 const schema = yup.object().shape({
   title: yup.string().required("The title is required"),
@@ -58,6 +59,11 @@ const AddForm = () => {
   const [showimage, setShowImage] = useState("");
   const [newImage, setImage] = useState([]);
 
+  //context API
+  const dataS = useContext(UserAuthContext);
+  console.log(dataS);
+
+
   const handleImageChange = (event) => {
     setShowImage(event.target.files[0]);
     setImage([...newImage, event.target.files[0]]);
@@ -87,8 +93,6 @@ const AddForm = () => {
   return (
     <div className="mt-12">
 
-      {/* field title,sub_title,author_name,date,description,image */}
-
       <Formik
         initialValues={{
           title: "",
@@ -114,7 +118,7 @@ const AddForm = () => {
                   <div
                     key={i}
                     className="grid grid-cols-6">
-                    <label htmlFor={val.name} className="capitalize col-span-1 mt-8">
+                    <label htmlFor={val.name} className="capitalize font-bold col-span-1 mt-8">
                       {val.name}
                     </label>
 
@@ -140,14 +144,18 @@ const AddForm = () => {
                         />
                       </div>
                     ) : (
-                      <div className="col-span-5 flex mt-8">
+                      <div className="col-start-2 col-span-5 flex mt-8">
                         <Field
                           type={val.type}
                           name={val.name}
                           placeholder={`Enter your ${val.name}`}
-                          className="border-2 border-gray-400 pl-2 focus:outline-none rounded-md"
+                          className="border-2 border-gray-400 pl-2 focus:outline-none rounded-md py-1 col-span-3 w-[400px]"
                         />
-                        <p className="text-red-600 text-sm pl-4"><ErrorMessage name={val.name} /></p>
+                        <ErrorMessage
+                          component={"div"}
+                          name={val.name}
+                          className="text-red-600 text-sm pl-4"
+                        ></ErrorMessage>
                       </div>
                     )}
                   </div>

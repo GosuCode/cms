@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 
 const Toolbar = () => {
@@ -14,17 +14,23 @@ const Toolbar = () => {
       name: "contact",
     },
     {
-      name: "detail",
-    },
-    {
-      name: "services",
+      name: "logout",
     },
   ]
   const [show, setShow] = React.useState(false);
   const [Arrow, setArrow] = useState('down');
+
+
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    window.localStorage.clear();
+    navigate('/login');
+  }
+
+
   return (
     <div className='bg-[#845EC2] h-14 flex'>
-      {/* [#392759] */}
       <div className='flex items-center text-white gap-2 mx-10'>
         <div className='bg-[#00C9A7] w-10 font-bold text-4xl'>B</div>
         <div>Blog Mgmt</div>
@@ -49,13 +55,21 @@ const Toolbar = () => {
             }}
           />
           {
-            show && <div className='w-48 text-black absolute top-12 bg-[#FEFEDF] right-0 shadow-md shadow-slate-600'>
+            show && <div className='w-48 text-black absolute top-12 rounded-md bg-[#FEFEDF] right-0 shadow-md shadow-slate-600'>
               {data.map((val, i) => {
-                return (
-                  <div className='capitalize cursor-pointer items-center text-center py-2 hover:text-red-500' key={i}>
-                    {val.name}
-                  </div>
-                )
+                if (val.name === 'logout') {
+                  return (
+                    <div key={i}
+                      className='capitalize cursor-pointer items-center text-center py-2 hover:text-red-500'
+                      onClick={() => handleLogout()}>{val.name}</div>
+                  )
+                } else {
+                  return (
+                    <div className='capitalize cursor-pointer items-center text-center py-2 hover:text-red-500' key={i}>
+                      {val.name}
+                    </div>
+                  )
+                }
               })}
             </div>
           }
